@@ -626,7 +626,7 @@ function calcularRescisao(){
     rows.push(["FGTS do período (8%)","8% &times; "+_fmt(salario)+" &times; "+mesesFGTS,_fmt(fgtsShow)]);msg.push("FGTS do período: "+_fmt(fgtsShow));
     rows.push(["Multa 40% do FGTS","40% &times; "+_fmt(fgts),_fmt(multa)]);msg.push("Multa 40% do FGTS: "+_fmt(multa));
   }
-  var texto="Olá, Dra. Tairiny! Fiz a simulação de rescisão no site e quero falar sobre o meu caso.\n\n";
+  var texto="Olá, Dra. Tairiny! Vim do seu site trabalhista. Esta foi a estimativa da minha rescisão:\n\n";
   texto+="Salário: "+_fmt(salario)+"\n";
   texto+="Admissão: "+_data(dAdm)+"\n";
   texto+="Situação: "+(situacao==="trabalhando"?"Ainda trabalhando":"Já desligado(a)")+"\n";
@@ -642,14 +642,17 @@ function calcularRescisao(){
   alvo.style.display="block";
   var btn="font-family:'Inter',sans-serif;display:inline-block;background:#d4af37;color:#111;padding:16px 26px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-top:6px";
   if(total>15000){
+    var aberta=null;
+    try{aberta=window.open(link,"_blank");}catch(e){aberta=null;}
     var g="<div style=\"font-family:'Inter',sans-serif;text-align:center\">";
     g+="<div style=\"font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:14px\">Resultado da simulação</div>";
     g+="<div style=\"font-size:22px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:12px\">Sua rescisão estimada é significativa.</div>";
-    g+="<p style=\"font-size:14px;color:#bbb;line-height:1.7;margin-bottom:24px\">A estimativa do seu caso ultrapassa <strong style=\"color:#d4af37\">R$ 15.000</strong>. Clique abaixo para receber o <strong>detalhamento completo</strong> e uma análise gratuita diretamente com a Dra. Tairiny.</p>";
-    g+="<a href=\""+link+"\" target=\"_blank\" style=\""+btn+"\">Receber meu cálculo no WhatsApp</a>";
+    g+="<p style=\"font-size:14px;color:#bbb;line-height:1.7;margin-bottom:20px\">Estamos te levando para o <strong style=\"color:#25d366\">WhatsApp</strong> com o resumo do seu caso já preenchido. É só tocar em enviar para receber o <strong>detalhamento completo</strong> e uma análise gratuita com a Dra. Tairiny.</p>";
+    g+="<a href=\""+link+"\" target=\"_blank\" style=\""+btn+"\">Abrir meu resumo no WhatsApp</a>";
     g+="<p style=\"font-size:11px;color:#777;margin-top:16px\">Atendimento humanizado &middot; Primeira análise gratuita</p>";
     g+="</div>";
     alvo.innerHTML=g;
+    if(!aberta){setTimeout(function(){window.location.href=link;},1500);}
     return;
   }
   var lbl="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:14px;display:block";
