@@ -227,18 +227,6 @@ footer p, footer h2, footer h3, footer span:not(.bar){text-align:left!important}
 }
 
 </style>
-<style>
-#popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:9000;align-items:center;justify-content:center}
-#popup-overlay.active{display:flex}
-#popup-box{background:#1a1a1a;border:1px solid rgba(212,175,55,0.3);border-radius:16px;max-width:380px;width:90%;padding:24px 22px;position:relative;text-align:center;font-family:'Inter',sans-serif}
-#popup-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.06);border:none;cursor:pointer;font-size:18px;color:#999;display:flex;align-items:center;justify-content:center;z-index:10;line-height:1}
-#popup-close:hover{color:#d4af37}
-#popup-book-img{width:65px;margin:0 auto 12px}
-#popup-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
-#popup-sub{font-size:13px;color:#999;margin-bottom:16px;line-height:1.5}
-#popup-cta{display:inline-block;background:#d4af37;color:#000;font-weight:700;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;padding:12px 28px;border-radius:6px;text-decoration:none;transition:opacity 0.2s}
-#popup-cta:hover{opacity:0.85}
-</style>
 </head>
 <body>
 
@@ -322,91 +310,7 @@ footer p, footer h2, footer h3, footer span:not(.bar){text-align:left!important}
   <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);color:#fff;font-weight:700;margin-bottom:12px">Calcule o que a empresa <em style="color:#d4af37;font-style:italic">te deve</em></h2>
   <p style="font-family:'Inter',sans-serif;font-size:15px;color:#888;margin-bottom:48px;line-height:1.8">Estimativa rápida das suas verbas rescisórias. Preencha os dados abaixo — leva menos de 1 minuto.</p>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start" id="calc-grid">
-
-    <!-- Formulário -->
-    <div>
-      <div style="margin-bottom:24px">
-        <label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Salário bruto mensal (R$)</label>
-        <input type="number" id="c-salario" placeholder="Ex: 2500" min="0"
-          style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='rgba(212,175,55,0.2)'">
-      </div>
-
-      <div style="margin-bottom:24px">
-        <label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Tempo de serviço (meses)</label>
-        <input type="number" id="c-meses" placeholder="Ex: 18" min="1"
-          style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='rgba(212,175,55,0.2)'">
-      </div>
-
-      <div style="margin-bottom:24px">
-        <label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Tipo de desligamento</label>
-        <select id="c-tipo"
-          style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;cursor:pointer;-webkit-appearance:none;transition:border-color 0.2s"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='rgba(212,175,55,0.2)'">
-          <option value="sem_justa">Demissão sem justa causa</option>
-          <option value="rescisao_indireta">Rescisão indireta</option>
-          <option value="justa_causa">Demitido por justa causa</option>
-          <option value="pedido_demissao">Pedido de demissão</option>
-        </select>
-      </div>
-
-      <div style="margin-bottom:32px">
-        <label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Meses trabalhados no ano atual</label>
-        <input type="number" id="c-meses-ano" placeholder="Ex: 5 (de jan a mai)" min="0" max="12"
-          style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;transition:border-color 0.2s"
-          onfocus="this.style.borderColor='#d4af37'" onblur="this.style.borderColor='rgba(212,175,55,0.2)'">
-      </div>
-
-      <button onclick="calcularRescisao()"
-        style="width:100%;background:#d4af37;color:#000;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px;cursor:pointer;transition:opacity 0.2s"
-        onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-        Calcular agora
-      </button>
-    </div>
-
-    <!-- Resultado -->
-    <div id="calc-resultado" style="display:none">
-      <div style="background:#0d0d0d;border:1px solid rgba(212,175,55,0.2);padding:32px">
-        <p style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:20px">Estimativa de verbas rescisórias</p>
-
-        <div id="calc-itens" style="display:flex;flex-direction:column;gap:0"></div>
-
-        <div style="border-top:2px solid #d4af37;margin-top:20px;padding-top:20px;display:flex;justify-content:space-between;align-items:baseline">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;font-weight:600">Total estimado</p>
-          <p id="calc-total" style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#d4af37;font-weight:700"></p>
-        </div>
-
-        <div style="margin-top:28px;padding:16px;background:#080808;border-left:3px solid #d4af37">
-          <p style="font-family:'Inter',sans-serif;font-size:12px;color:#888;line-height:1.7">⚠️ Este é um cálculo <strong style="color:#ccc">estimado</strong>. Podem existir verbas adicionais não calculadas aqui: horas extras, adicionais, PLR, multas, danos morais, aviso prévio indenizado, entre outras.</p>
-        </div>
-
-        <div style="margin-top:24px">
-          <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;margin-bottom:16px;line-height:1.4">Quer garantir que não está perdendo nenhum direito?</p>
-          <button onclick="enviarCalcWhatsApp()"
-            style="width:100%;background:#25d366;color:#fff;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:opacity 0.2s"
-            onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.532 5.855L.057 23.886l6.196-1.447A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.518-5.187-1.42l-.371-.22-3.681.86.92-3.572-.242-.383A9.959 9.959 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Falar com a Dra. Tairiny
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Placeholder antes de calcular -->
-    <div id="calc-placeholder" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:20px;padding:32px;border:1px dashed rgba(212,175,55,0.15)">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#555;font-style:italic;line-height:1.5">"Muitos trabalhadores deixam de receber o que têm direito simplesmente por não saber o que podem cobrar."</p>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;align-items:center;gap:10px"><span style="color:#d4af37">✓</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:#777">FGTS + 40% de multa</span></div>
-        <div style="display:flex;align-items:center;gap:10px"><span style="color:#d4af37">✓</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:#777">Aviso prévio</span></div>
-        <div style="display:flex;align-items:center;gap:10px"><span style="color:#d4af37">✓</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:#777">Férias + 1/3 constitucional</span></div>
-        <div style="display:flex;align-items:center;gap:10px"><span style="color:#d4af37">✓</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:#777">13º salário proporcional</span></div>
-        <div style="display:flex;align-items:center;gap:10px"><span style="color:#d4af37">✓</span><span style="font-family:'Inter',sans-serif;font-size:13px;color:#777">+ verbas específicas do seu caso</span></div>
-      </div>
-    </div>
-
-  </div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start" id="calc-grid"><div><div style="margin-bottom:24px"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Salário bruto mensal (R$)</label><input type="number" id="c-salario" placeholder="Ex: 2500" min="0" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box"></div><div style="margin-bottom:24px"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Data de admissão</label><input type="date" id="c-admissao" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box"></div><div style="margin-bottom:24px"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Situação atual</label><select id="c-situacao" onchange="_toggleSaida()" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;appearance:none;cursor:pointer"><option value="desligado">Já fui desligado(a)</option><option value="trabalhando">Ainda estou trabalhando</option></select></div><div style="margin-bottom:24px" id="c-saida-wrap"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Data do desligamento</label><input type="date" id="c-saida" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box"></div><div style="margin-bottom:24px"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Tipo de desligamento</label><select id="c-tipo" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;appearance:none;cursor:pointer"><option value="sem_justa">Demissão sem justa causa</option><option value="rescisao_indireta">Rescisão indireta</option><option value="justa_causa">Demissão por justa causa</option><option value="pedido">Pedido de demissão</option></select></div><div style="margin-bottom:24px"><label style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;display:block;margin-bottom:8px">Aviso prévio</label><select id="c-aviso" style="width:100%;background:#111;border:1px solid rgba(212,175,55,0.2);color:#fff;font-family:'Inter',sans-serif;font-size:15px;padding:14px 16px;outline:none;box-sizing:border-box;appearance:none;cursor:pointer"><option value="indenizado">Indenizado</option><option value="trabalhado">Trabalhado</option></select></div><button onclick="calcularRescisao()" style="width:100%;background:#d4af37;color:#111;border:none;padding:16px;font-family:'Inter',sans-serif;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-size:13px">Calcular agora</button></div><div><div id="calc-placeholder"><p style="font-family:Georgia,serif;font-style:italic;font-size:18px;line-height:1.6;color:#ccc;margin:0 0 28px">"Muitos trabalhadores deixam de receber o que têm direito simplesmente por não saber o que podem cobrar."</p><div style="font-family:'Inter',sans-serif;font-size:14px;color:#bbb;line-height:2.2"><div>&#10003;&nbsp;&nbsp;FGTS + 40% de multa</div><div>&#10003;&nbsp;&nbsp;Aviso prévio</div><div>&#10003;&nbsp;&nbsp;Férias + 1/3 constitucional</div><div>&#10003;&nbsp;&nbsp;13º salário proporcional</div><div>&#10003;&nbsp;&nbsp;+ verbas específicas do seu caso</div></div></div><div id="calc-resultado" style="display:none"></div></div></div>
 </section>
 <!-- ════════════ COMUNIDADE ════════════ -->
 <section id="sobre" class="section">
@@ -669,76 +573,102 @@ footer p, footer h2, footer h3, footer span:not(.bar){text-align:left!important}
 
 
 <script>
-var _calcData = {};
-function calcularRescisao() {
-  var sal = parseFloat(document.getElementById('c-salario').value) || 0;
-  var meses = parseInt(document.getElementById('c-meses').value) || 0;
-  var tipo = document.getElementById('c-tipo').value;
-  var mesesAno = parseInt(document.getElementById('c-meses-ano').value) || 0;
-
-  if (sal <= 0 || meses <= 0) {
-    alert('Por favor, preencha salário e tempo de serviço.');
+function _fmt(v){return "R$ " + (v||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function _data(d){var dd=("0"+d.getDate()).slice(-2);var mm=("0"+(d.getMonth()+1)).slice(-2);return dd+"/"+mm+"/"+d.getFullYear();}
+function _avos(a,b){if(b<=a)return 0;var m=0,cur=new Date(a);while(true){var next=new Date(cur);next.setMonth(cur.getMonth()+1);var end=next<b?next:b;var days=Math.round((end-cur)/86400000);if(days>=15)m++;if(next>=b)break;cur=next;}return m;}
+function _mesesCompletos(a,b){var m=(b.getFullYear()-a.getFullYear())*12+(b.getMonth()-a.getMonth());if(b.getDate()<a.getDate())m--;return Math.max(0,m);}
+var _WPP="5561920046994";
+function calcularRescisao(){
+  var salario=parseFloat(document.getElementById("c-salario").value)||0;
+  var admVal=document.getElementById("c-admissao").value;
+  var situacao=document.getElementById("c-situacao").value;
+  var saiVal=document.getElementById("c-saida").value;
+  var tipo=document.getElementById("c-tipo").value;
+  var aviso=document.getElementById("c-aviso").value;
+  if(salario<=0||!admVal){alert("Preencha o salário bruto e a data de admissão.");return;}
+  if(situacao==="desligado"&&!saiVal){alert("Informe a data do desligamento.");return;}
+  var dAdm=new Date(admVal+"T00:00:00");
+  var dFim=situacao==="trabalhando"?new Date():new Date(saiVal+"T00:00:00");
+  if(dFim<dAdm){alert("A data final não pode ser anterior à admissão.");return;}
+  var diaSal=salario/30;
+  var saldoDias=dFim.getDate();
+  var saldoSalario=diaSal*saldoDias;
+  var mesesContrato=_mesesCompletos(dAdm,dFim);
+  var anos=Math.floor(mesesContrato/12);
+  var anoFim=dFim.getFullYear();
+  var ini13=(dAdm.getFullYear()===anoFim)?dAdm:new Date(anoFim,0,1);
+  var meses13=Math.min(12,_avos(ini13,dFim));
+  var ultAniv=new Date(dAdm);ultAniv.setFullYear(dAdm.getFullYear()+anos);
+  var mesesFerias=Math.min(12,_avos(ultAniv,dFim));
+  var mesesFGTS=_avos(dAdm,dFim);
+  var fgts=0.08*salario*mesesFGTS;
+  var diasAviso=Math.min(30+3*anos,90);
+  var temAviso=(tipo==="sem_justa"||tipo==="rescisao_indireta");
+  var avisoValor=0;
+  if(temAviso&&aviso==="indenizado"){avisoValor=diaSal*diasAviso;}
+  var m13v=0,fer=0,multa=0,fgtsShow=0;
+  if(tipo==="sem_justa"||tipo==="rescisao_indireta"){m13v=(meses13/12)*salario;fer=(mesesFerias/12)*salario*(4/3);fgtsShow=fgts;multa=0.4*fgts;}
+  else if(tipo==="pedido"){m13v=(meses13/12)*salario;fer=(mesesFerias/12)*salario*(4/3);}
+  var total=saldoSalario+avisoValor+m13v+fer+fgtsShow+multa;
+  var tipoLabel={sem_justa:"Demissão sem justa causa",rescisao_indireta:"Rescisão indireta",justa_causa:"Demissão por justa causa",pedido:"Pedido de demissão"}[tipo];
+  var rows=[],msg=[];
+  rows.push(["Saldo de salário",saldoDias+" dias &times; "+_fmt(diaSal)+"/dia",_fmt(saldoSalario)]);
+  msg.push("Saldo de salário: "+_fmt(saldoSalario));
+  if(temAviso){
+    if(aviso==="indenizado"){rows.push(["Aviso prévio indenizado",diasAviso+" dias"+(anos>=1?" (30 + 3/ano)":" (< 1 ano)"),_fmt(avisoValor)]);msg.push("Aviso prévio indenizado: "+_fmt(avisoValor));}
+    else{rows.push(["Aviso prévio trabalhado","pago como salário normal","&mdash;"]);}
+  }
+  if(tipo==="sem_justa"||tipo==="rescisao_indireta"||tipo==="pedido"){
+    rows.push(["13&ordm; proporcional",meses13+"/12 &times; "+_fmt(salario),_fmt(m13v)]);msg.push("13o proporcional: "+_fmt(m13v));
+    rows.push(["Férias proporcionais + 1/3",mesesFerias+"/12 &times; "+_fmt(salario)+" + 1/3",_fmt(fer)]);msg.push("Férias proporcionais + 1/3: "+_fmt(fer));
+  }
+  if(tipo==="sem_justa"||tipo==="rescisao_indireta"){
+    rows.push(["FGTS do período (8%)","8% &times; "+_fmt(salario)+" &times; "+mesesFGTS,_fmt(fgtsShow)]);msg.push("FGTS do período: "+_fmt(fgtsShow));
+    rows.push(["Multa 40% do FGTS","40% &times; "+_fmt(fgts),_fmt(multa)]);msg.push("Multa 40% do FGTS: "+_fmt(multa));
+  }
+  var texto="Olá, Dra. Tairiny! Fiz a simulação de rescisão no site e quero falar sobre o meu caso.\n\n";
+  texto+="Salário: "+_fmt(salario)+"\n";
+  texto+="Admissão: "+_data(dAdm)+"\n";
+  texto+="Situação: "+(situacao==="trabalhando"?"Ainda trabalhando":"Já desligado(a)")+"\n";
+  if(situacao==="desligado"){texto+="Desligamento: "+_data(dFim)+"\n";}
+  texto+="Tipo: "+tipoLabel+"\n";
+  if(temAviso){texto+="Aviso prévio: "+(aviso==="indenizado"?"Indenizado":"Trabalhado")+"\n";}
+  texto+="\n--- Estimativa ---\n";
+  for(var k=0;k<msg.length;k++){texto+=msg[k]+"\n";}
+  texto+="\nTOTAL ESTIMADO (bruto): "+_fmt(total);
+  var link="https://wa.me/"+_WPP+"?text="+encodeURIComponent(texto);
+  var alvo=document.getElementById("calc-resultado");
+  var ph=document.getElementById("calc-placeholder");if(ph)ph.style.display="none";
+  alvo.style.display="block";
+  var btn="font-family:'Inter',sans-serif;display:inline-block;background:#d4af37;color:#111;padding:16px 26px;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-top:6px";
+  if(total>15000){
+    var g="<div style=\"font-family:'Inter',sans-serif;text-align:center\">";
+    g+="<div style=\"font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:14px\">Resultado da simulação</div>";
+    g+="<div style=\"font-size:22px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:12px\">Sua rescisão estimada é significativa.</div>";
+    g+="<p style=\"font-size:14px;color:#bbb;line-height:1.7;margin-bottom:24px\">A estimativa do seu caso ultrapassa <strong style=\"color:#d4af37\">R$ 15.000</strong>. Clique abaixo para receber o <strong>detalhamento completo</strong> e uma análise gratuita diretamente com a Dra. Tairiny.</p>";
+    g+="<a href=\""+link+"\" target=\"_blank\" style=\""+btn+"\">Receber meu cálculo no WhatsApp</a>";
+    g+="<p style=\"font-size:11px;color:#777;margin-top:16px\">Atendimento humanizado &middot; Primeira análise gratuita</p>";
+    g+="</div>";
+    alvo.innerHTML=g;
     return;
   }
-  if (mesesAno > 12) mesesAno = 12;
-
-  var anos = meses / 12;
-  var fgts = sal * 0.08 * meses;
-  var multaFgts = (tipo === 'sem_justa' || tipo === 'rescisao_indireta') ? fgts * 0.40 : 0;
-  var avisoPrevio = (tipo === 'sem_justa' || tipo === 'rescisao_indireta') ? sal + Math.min(Math.floor(anos) * sal * (3/30), sal * 2) : 0;
-  var feriasProporcionais = (sal / 12) * mesesAno;
-  var umTercoFerias = feriasProporcionais * (1/3);
-  var decimoTerceiro = (sal / 12) * mesesAno;
-
-  // Justa causa perde multa e aviso, mas não FGTS
-  if (tipo === 'justa_causa') {
-    fgts = 0; multaFgts = 0; avisoPrevio = 0; feriasProporcionais = 0; umTercoFerias = 0; decimoTerceiro = 0;
+  var lbl="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#d4af37;margin-bottom:14px;display:block";
+  var html="<div style=\"font-family:'Inter',sans-serif\">";
+  html+="<span style=\""+lbl+"\">Estimativa de verbas rescisórias</span>";
+  html+="<table style=\"width:100%;border-collapse:collapse;font-size:13px;color:#eee\">";
+  html+="<tr style=\"color:#d4af37;text-align:left\"><th style=\"padding:8px 6px;border-bottom:1px solid rgba(212,175,55,0.3);font-weight:600\">Verba</th><th style=\"padding:8px 6px;border-bottom:1px solid rgba(212,175,55,0.3);font-weight:600\">Cálculo</th><th style=\"padding:8px 6px;border-bottom:1px solid rgba(212,175,55,0.3);font-weight:600;text-align:right\">Valor</th></tr>";
+  for(var i=0;i<rows.length;i++){
+    html+="<tr><td style=\"padding:9px 6px;border-bottom:1px solid rgba(255,255,255,0.06)\">"+rows[i][0]+"</td><td style=\"padding:9px 6px;border-bottom:1px solid rgba(255,255,255,0.06);color:#999\">"+rows[i][1]+"</td><td style=\"padding:9px 6px;border-bottom:1px solid rgba(255,255,255,0.06);text-align:right;white-space:nowrap\">"+rows[i][2]+"</td></tr>";
   }
-  // Pedido de demissão perde multa e aviso
-  if (tipo === 'pedido_demissao') {
-    multaFgts = 0; avisoPrevio = 0;
-  }
-
-  var total = fgts + multaFgts + avisoPrevio + feriasProporcionais + umTercoFerias + decimoTerceiro;
-  _calcData = {sal: sal, meses: meses, tipo: tipo, total: total};
-
-  var itens = [
-    {label: 'FGTS depositado (estimativa)', val: fgts},
-    {label: 'Multa de 40% sobre FGTS', val: multaFgts},
-    {label: 'Aviso prévio', val: avisoPrevio},
-    {label: 'Férias proporcionais', val: feriasProporcionais},
-    {label: '1/3 constitucional sobre férias', val: umTercoFerias},
-    {label: '13º salário proporcional', val: decimoTerceiro},
-  ];
-
-  var html2 = '';
-  itens.forEach(function(item) {
-    var cor = item.val > 0 ? '#ccc' : '#444';
-    html2 += '<div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05)">' +
-      '<span style="font-family:'Inter',sans-serif;font-size:13px;color:' + cor + '">' + item.label + '</span>' +
-      '<span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:' + (item.val > 0 ? '#d4af37' : '#333') + '">' +
-      (item.val > 0 ? 'R$ ' + item.val.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}) : '—') +
-      '</span></div>';
-  });
-
-  document.getElementById('calc-itens').innerHTML = html2;
-  document.getElementById('calc-total').textContent = 'R$ ' + total.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
-  document.getElementById('calc-resultado').style.display = 'block';
-  document.getElementById('calc-placeholder').style.display = 'none';
+  html+="<tr><td colspan=\"2\" style=\"padding:14px 6px;color:#d4af37;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:12px\">Total estimado (bruto)</td><td style=\"padding:14px 6px;text-align:right;color:#d4af37;font-weight:700;font-size:16px;white-space:nowrap\">"+_fmt(total)+"</td></tr>";
+  html+="</table>";
+  if(tipo==="justa_causa"){html+="<p style=\"margin-top:14px;font-size:12px;color:#c88\">Na demissão por justa causa o trabalhador recebe, em regra, apenas o saldo de salário e eventuais férias vencidas. Consulte a Dra. Tairiny para análise do seu caso.</p>";}
+  html+="<p style=\"margin-top:16px;font-size:11px;color:#888;line-height:1.6\">&#9888; Cálculo estimado. Podem existir verbas adicionais não calculadas aqui: horas extras, adicionais, PLR, férias vencidas, danos morais, entre outras.</p>";
+  html+="<a href=\""+link+"\" target=\"_blank\" style=\""+btn+"\">Falar com a Dra. Tairiny</a>";
+  html+="</div>";
+  alvo.innerHTML=html;
 }
-
-function enviarCalcWhatsApp() {
-  if (!_calcData.sal) { calcularRescisao(); return; }
-  var tipos = {sem_justa:'Demissão sem justa causa', rescisao_indireta:'Rescisão indireta', justa_causa:'Demitido por justa causa', pedido_demissao:'Pedido de demissão'};
-  var msg = 'Olá, Dra. Tairiny! Usei a calculadora do seu site e gostaria de analisar meu caso.' +
-    '\n\n📊 *Dados informados:*' +
-    '\n• Salário: R$ ' + _calcData.sal.toLocaleString('pt-BR') +
-    '\n• Tempo de serviço: ' + _calcData.meses + ' meses' +
-    '\n• Tipo: ' + tipos[_calcData.tipo] +
-    '\n• Estimativa: R$ ' + _calcData.total.toLocaleString('pt-BR', {minimumFractionDigits:2}) +
-    '\n\nPoderia analisar se tenho outros direitos além desses?';
-  window.open('https://wa.me/5561920046994?text=' + encodeURIComponent(msg), '_blank');
-}
+function _toggleSaida(){var s=document.getElementById("c-situacao").value;var w=document.getElementById("c-saida-wrap");if(w)w.style.display=(s==="trabalhando")?"none":"block";}
 </script>
 
 
@@ -1089,35 +1019,6 @@ function toggleFaq(btn) {
 
 
 
-<!-- POPUP INATIVIDADE -->
-<div id="popup-overlay">
-  <div id="popup-box">
-    <button id="popup-close" onclick="fecharPopup()">&#x2715;</button>
-    <div id="popup-book-img">
-      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="10" width="60" height="60" rx="6" fill="#d4af37" opacity="0.15"/>
-        <rect x="18" y="18" width="44" height="6" rx="3" fill="#d4af37" opacity="0.8"/>
-        <rect x="18" y="30" width="36" height="4" rx="2" fill="#d4af37" opacity="0.5"/>
-        <rect x="18" y="40" width="40" height="4" rx="2" fill="#d4af37" opacity="0.5"/>
-        <rect x="18" y="50" width="30" height="4" rx="2" fill="#d4af37" opacity="0.5"/>
-      </svg>
-    </div>
-    <div id="popup-title">Seus direitos trabalhistas</div>
-    <div id="popup-sub">Fui demitida/o? Nao recebi minhas verbas rescisorias? Fale agora com a Dra. Tairiny e descubra o que voce tem direito.</div>
-    <a id="popup-cta" href="https://wa.me/5561920046994" target="_blank">Consulta gratuita &#x2192;</a>
-  </div>
-</div>
-<script>
-var popupMostrado=false;
-function mostrarPopup(){if(!popupMostrado){popupMostrado=true;document.getElementById('popup-overlay').classList.add('active');}}
-function fecharPopup(){document.getElementById('popup-overlay').classList.remove('active');}
-document.getElementById('popup-overlay').addEventListener('click',function(e){if(e.target===this)fecharPopup();});
-var inactivityTimer;
-function resetInactivityTimer(){clearTimeout(inactivityTimer);inactivityTimer=setTimeout(mostrarPopup,30000);}
-['mousemove','scroll','keydown','touchstart','click'].forEach(function(ev){document.addEventListener(ev,resetInactivityTimer,{passive:true});});
-resetInactivityTimer();
-document.addEventListener('mouseleave',function(e){if(e.clientY<=0)mostrarPopup();});
-</script>
 
 <!-- ════════════ LGPD COOKIE BANNER ════════════ -->
 <div id="lgpd-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#0d0d0d;border-top:1px solid rgba(212,175,55,0.2);padding:18px 32px;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
