@@ -1485,7 +1485,7 @@ function fecharLGPD(){
 </script>
 <!-- /Eventos -->
 <!-- LGPD Banner -->
-<style>#lgpd-bar{position:fixed;bottom:0;left:0;right:0;background:#111;color:#ddd;font-size:13px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:99999;border-top:2px solid #b8860b;flex-wrap:wrap}#lgpd-bar a{color:#d4af37}#lgpd-bar button{background:#d4af37;color:#000;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-weight:700;font-size:13px}
+<style>
 /* ══ SEÇÃO COMUNIDADE — padrão do escritório ══ */
 .trc-comunidade{background:linear-gradient(135deg,#1a1206,#3d2c0a);position:relative;overflow:hidden;padding:72px 24px}
 .trc-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center}
@@ -1510,8 +1510,7 @@ function fecharLGPD(){
 }
 @media (prefers-reduced-motion:reduce){ .trc-btn{transition:none} .trc-btn:hover{transform:none} }
 </style>
-<div id="lgpd-bar"><span>Este site usa cookies. Ao continuar navegando, voce concorda com a <a href="#privacidade">Politica de Privacidade</a> (LGPD).</span><button onclick="localStorage.setItem('lgpd_ok','1');this.closest('#lgpd-bar').remove()">Aceitar</button></div>
-<script>if(localStorage.getItem("lgpd_ok"))document.getElementById("lgpd-bar").remove();</script>
+
 <!-- /LGPD -->
 <!-- Social Proof Toast -->
 <div class="toast-social" id="toastSocial">
